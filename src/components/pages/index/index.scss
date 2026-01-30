@@ -56,6 +56,7 @@ $base-width: 1440;
 		padding-top: 25%;
 	}
 
+	// висота менша за 800px та ширина більша за 768px
 	@media (max-height: toEm(800)) and (min-width: toEm($mobile)) {
 		height: auto;
 	}
@@ -135,8 +136,9 @@ $base-width: 1440;
 		padding: 5px 10px;
 		order: 2;
 	}
-
-	@media (max-height: toEm(700)){
+	
+	// висота менша за 700px та ширина менша за 768px
+	@media (max-height: toEm(700)) and (max-width: toEm($mobile)) {
 		display: none;
 	}
 
