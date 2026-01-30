@@ -279,3 +279,54 @@ export function setViewportHeight() {
 		setTimeout(setVh, 100);
 	});
 }
+
+// Масштабування контенту для десктопів (в один екран, без вертикального скролу)
+// Працює тільки для екранів шириною >= mobileBreakpoint
+export function setDesktopScale(options = {}) {
+	const {
+		selector = '.game',
+		designWidth = 1440,
+		designHeight = 800,
+		mobileBreakpoint = 768
+	} = options;
+
+	const element = document.querySelector(selector);
+	if (!element) return;
+
+	const calculateScale = () => {
+		const viewportWidth = window.innerWidth;
+		const viewportHeight = window.innerHeight;
+
+		// Тільки для десктопів (ширина >= mobileBreakpoint)
+		if (viewportWidth < mobileBreakpoint) {
+			element.style.transform = '';
+			element.style.transformOrigin = '';
+			document.body.style.overflow = '';
+			return;
+		}
+
+		// Обчислюємо коефіцієнт масштабування
+		// Беремо мінімум, щоб контент вмістився і по ширині, і по висоті
+		const scaleX = viewportWidth / designWidth;
+		const scaleY = viewportHeight / designHeight;
+		const scale = Math.min(scaleX, scaleY);
+
+		// Застосовуємо масштабування тільки якщо потрібно зменшити
+		// Для збільшення використовуємо існуючу vw() функцію в CSS
+		if (scale < 1) {
+			element.style.transform = `scale(${scale})`;
+			element.style.transformOrigin = 'top center';
+			document.body.style.overflow = 'hidden';
+		} else {
+			element.style.transform = '';
+			element.style.transformOrigin = '';
+			document.body.style.overflow = 'hidden';
+		}
+	};
+
+	calculateScale();
+	window.addEventListener('resize', calculateScale);
+	window.addEventListener('orientationchange', () => {
+		setTimeout(calculateScale, 100);
+	});
+}

@@ -56,11 +56,6 @@ $base-width: 1440;
 		padding-top: 25%;
 	}
 
-	// висота менша за 800px та ширина більша за 768px
-	@media (max-height: toEm(800)) and (min-width: toEm($mobile)) {
-		height: auto;
-	}
-
 	&__wrap {
 		width: 100%;
 		padding: 0 vw(80);
