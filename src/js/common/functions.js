@@ -266,3 +266,16 @@ export function formatDate(date, sepp) {
 	const year = d.getFullYear();
 	return `${day}${sepp}${month}${sepp}${year}`;
 }
+// Фікс для 100vh на мобільних браузерах (iOS Safari/Chrome)
+// Встановлює CSS-змінну --vh для коректної висоти viewport
+export function setViewportHeight() {
+	const setVh = () => {
+		const vh = window.innerHeight * 0.01;
+		document.documentElement.style.setProperty('--vh', `${vh}px`);
+	};
+	setVh();
+	window.addEventListener('resize', setVh);
+	window.addEventListener('orientationchange', () => {
+		setTimeout(setVh, 100);
+	});
+}
