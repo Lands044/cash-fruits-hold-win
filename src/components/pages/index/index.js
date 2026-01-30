@@ -60,10 +60,13 @@ class SlotMachine {
 		// Поточна конфігурація
 		this.config = this.getConfigForCurrentBreakpoint();
 
+		// Базовий URL для ресурсів (коректні шляхи у білді)
+		this.baseUrl = import.meta.env.BASE_URL || './';
+
 		// Звуки
 		this.sounds = {
-			spin: new Audio('@sound/spin.mp3'),
-			win: new Audio('@sound/win.mp3')
+			spin: new Audio(`${this.baseUrl}assets/sound/spin.mp3`),
+			win: new Audio(`${this.baseUrl}assets/sound/win.mp3`)
 		};
 
 		// Іконки (8 типів)
@@ -273,7 +276,7 @@ class SlotMachine {
 				const iconNum = ((i + randomOffset) % this.icons) + 1;
 				const icon = document.createElement('div');
 				icon.className = 'drum__image';
-				icon.innerHTML = `<img src="@img/icon/icon-${iconNum}.webp" alt="Icon ${iconNum}">`;
+				icon.innerHTML = `<img src="${this.baseUrl}assets/img/icon/icon-${iconNum}.webp" alt="Icon ${iconNum}">`;
 				strip.appendChild(icon);
 			}
 
@@ -285,7 +288,7 @@ class SlotMachine {
 					columnIcons.forEach((iconNum) => {
 						const icon = document.createElement('div');
 						icon.className = 'drum__image';
-						icon.innerHTML = `<img src="@img/icon/icon-${iconNum}.webp" alt="Icon ${iconNum}">`;
+						icon.innerHTML = `<img src="${this.baseUrl}assets/img/icon/icon-${iconNum}.webp" alt="Icon ${iconNum}">`;
 						strip.appendChild(icon);
 					});
 				}
